@@ -7,7 +7,11 @@ const CrearCiudadano = (props) => {
 
   useEffect(() => {
     if(props.ciudadanoSelecto){
-      setCiudadano(props.ciudadanoSelecto);
+      const ciudadanoNuevo = {
+        ...props.ciudadanoSelecto,
+        fechaNacimiento: props.ciudadanoSelecto.fechaNacimiento.split("T")[0]
+      }
+      setCiudadano(ciudadanoNuevo);
     }
   },[props.ciudadanoSelecto])
 
@@ -21,9 +25,13 @@ const CrearCiudadano = (props) => {
   }
 
   const crear = async () => {
-    console.log(ciudadano);
+    const ciudadanoNuevo = {
+      ...ciudadano,
+      fechaNacimiento: new Date(ciudadano.fechaNacimiento).toISOString()
+    }
+    console.log(ciudadanoNuevo);
     try {
-      let ciudadanos = await guardarCiudadano(ciudadano);
+      let ciudadanos = await guardarCiudadano(ciudadanoNuevo);
       if(ciudadanos){
         cerrarFormulario();
       }
@@ -33,9 +41,13 @@ const CrearCiudadano = (props) => {
   }
 
   const editar = async () => {
-    console.log(ciudadano);
+    const ciudadanoNuevo = {
+      ...ciudadano,
+      fechaNacimiento: new Date(ciudadano.fechaNacimiento).toISOString()
+    }
+    console.log(ciudadanoNuevo);
     try {
-      let ciudadanos = await editarCiudadano(ciudadano);
+      let ciudadanos = await editarCiudadano(ciudadanoNuevo);
       if(ciudadanos){
         cerrarFormulario();
       }
@@ -82,7 +94,7 @@ const CrearCiudadano = (props) => {
         <TextField label="Correo" onChange={cambiarCiudadano} name="email" value={ciudadano.email} />
         <input type="date" className="border border-gray-300 rounded-md p-3" onChange={cambiarCiudadano} name="fechaNacimiento" value={ciudadano.fechaNacimiento || ""} />
         <TextField label="Profesion" onChange={cambiarCiudadano} name="profesion" value={ciudadano.profesion} />
-        <TextField label="Aspiracion Salarial" onChange={cambiarCiudadano} name="aspiracionSalarial" value={ciudadano.aspiracionSalarial} />
+        <TextField label="Aspiracion Salarial" type="number" onChange={cambiarCiudadano} name="aspiracionSalarial" value={ciudadano.aspiracionSalarial} />
         {props.ciudadanoSelecto && 
           <div className="flex flex-col gap-4">
             <label>Fecha de creación: {ciudadano.created?.split("T")[0]}</label>

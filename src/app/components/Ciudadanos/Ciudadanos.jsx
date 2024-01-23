@@ -56,7 +56,7 @@ const Ciudadanos = () => {
               <TableCell>{ciudadano.nombre}</TableCell>
               <TableCell>{ciudadano.apellido}</TableCell>
               <TableCell>{ciudadano.email}</TableCell>
-              <TableCell>{ciudadano.fechaNacimiento}</TableCell>
+              <TableCell>{ciudadano.fechaNacimiento.split("T")[0]}</TableCell>
               <TableCell>{ciudadano.profesion}</TableCell>
               <TableCell>{ciudadano.aspiracionSalarial}</TableCell>
             </TableRow>
